@@ -29,3 +29,49 @@ Take 15min to take a look at the files gatsby has generated for you and answer t
 
 ## Let's Build Something
 - Remove all uneeded files that were generated from gatsby new command
+- Inside pages folder add `About.js` file
+- Inside that file make changes to reflect the following 
+```
+import React from "react"
+import { Link } from "gatsby"
+
+const SecondPage = () => (
+  <main>
+    <Link to="/">Home</Link>
+
+    <h1>About me</h1>
+  </main>
+)
+
+export default SecondPage
+```
+
+Next lets go back to index and add a Link to our new page
+
+Index.js
+```
+import React, { Component } from "react"
+import { Link } from "gatsby"
+
+class IndexPage extends Component {
+  constructor(props) {
+    super(props)
+}
+
+  render() {
+    return (
+      <main>
+        <Link to="/about/">About</Link>
+      </main>
+    )
+  }
+}
+
+export default IndexPage
+```
+
+Now take a look at your application in the browser, What Happend?
+
+Gatsby has handled all the routing for us!
+
+## Re-create Dad Jokes
