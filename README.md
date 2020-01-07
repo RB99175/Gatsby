@@ -75,3 +75,183 @@ Now take a look at your application in the browser, What Happend?
 Gatsby has handled all the routing for us!
 
 ## Re-create Dad Jokes
+First create a joke.js file inside the components folder.
+
+Inside of that file create a joke component that takes a setup and punchline as props
+```
+import React from "react"
+
+
+export default props => (
+    <section>
+    <p>{props.setup}</p>
+    <h3>{props.punchline}</h3>
+  </section>
+)
+```
+
+Lets add this component to our index.js
+
+```
+import React, { Component } from "react"
+import { Link } from "gatsby"
+
+class IndexPage extends Component {
+  constructor(props) {
+    super(props)
+}
+
+  render() {
+    return (
+      <main>
+        <Link to="/about/">About</Link>
+        <Joke punchline={this.state.punchline} setup={this.state.setup} />
+      </main>
+    )
+  }
+}
+
+export default IndexPage
+```
+
+Now we need to handle our api call and set up some state variables to render the joke element with the needed data
+
+```
+import React, { Component } from "react"
+import { Link } from "gatsby"
+import Joke from "../components/joke"
+
+class IndexPage extends Component {
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      setup: "",
+      punchline: "",
+    }
+
+    this.getJoke = this.getJoke.bind(this)
+  }
+  componentDidMount() {
+    this.getJoke()
+  }
+
+  getJoke() {
+    fetch("https://official-joke-api.appspot.com/random_joke")
+      .then(res => {
+        return res.json()
+      })
+      .then(resJson => {
+        console.log(resJson)
+        this.setState({setup: resJson.setup, punchline: resJson.punchline })
+      })
+
+  }
+
+  render() {
+    return (
+      <main>
+        <Link to="/about/">About</Link>
+       
+        <Joke punchline={this.state.punchline} setup={this.state.setup} />
+        <button style={button} onClick={this.getJoke}>click for new joke</button>
+      </main>
+    )
+  }
+}
+
+export default IndexPage
+
+
+ ```
+ 
+ We now have the basic structure and some text rendering on the page
+ 
+ ## Styling in Gatsby
+ 
+ There are a million ways to style gatsby including using layout components, standered CSS files and a million others.
+
+- [intro to styling](https://www.gatsbyjs.org/tutorial/part-two/)
+- [more advanced styling](https://www.gatsbyjs.org/docs/styling/)
+
+ please take a look at these amazing resources for a depper dive into styling in gatsby.
+ 
+ For our purposes lets handle our styling within the javascript file by creating css objects like this.
+ 
+ ```
+ const button = {
+  padding: '20px',
+  fontSize: '20px',
+  backgroundColor: 'black',
+  color: 'white',
+  margin: '20px auto',
+}
+```
+Your final index.js file should look like this:
+```
+ import React, { Component } from "react"
+import { Link } from "gatsby"
+import Joke from "../components/joke"
+
+
+const button = {
+  padding: '20px',
+  fontSize: '20px',
+  backgroundColor: 'black',
+  color: 'white',
+  margin: '20px auto',
+}
+
+const body = {
+  textAlign: 'center'
+}
+
+
+class IndexPage extends Component {
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      setup: "",
+      punchline: "",
+    }
+
+    this.getJoke = this.getJoke.bind(this)
+  }
+  componentDidMount() {
+    this.getJoke()
+  }
+
+  getJoke() {
+    fetch("https://official-joke-api.appspot.com/random_joke")
+      .then(res => {
+        return res.json()
+      })
+      .then(resJson => {
+        console.log(resJson)
+        this.setState({setup: resJson.setup, punchline: resJson.punchline })
+      })
+
+  }
+
+  render() {
+    return (
+      <main style={body}>
+        <Link to="/about/">About</Link>
+
+        <Joke punchline={this.state.punchline} setup={this.state.setup} />
+        <button style={button} onClick={this.getJoke}>click for new joke</button>
+      </main>
+    )
+  }
+}
+
+export default IndexPage
+```
+
+## Further resources
+
+- [gatsby and ecommerce](https://www.gatsbyjs.org/tutorial/ecommerce-tutorial/)
+- [User Authentication](https://www.gatsbyjs.org/tutorial/authentication-tutorial/)
+
+ 
