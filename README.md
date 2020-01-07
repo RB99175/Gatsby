@@ -21,7 +21,7 @@ In simple terms gatsby develop launches a hot-reloading development enviroment f
 Gatsby build will create a highly optimized version of your site by generating static HTML and JavaScript bundles.
 
 ## Check pre-built files
-Take 15min to take a look at the files gatsby has generated for you and answer these questions in comparison to react:
+Take 5-10min to take a look at the files gatsby has generated for you and answer these questions in comparison to react:
 - What looks familiar?
 - What is the path of data?
 - What looks different? 
